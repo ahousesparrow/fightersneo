@@ -237,11 +237,13 @@ body {
 #game{
   display: none; /*block <-> none*/
   position: relative;
+  width: 170vmin; /*170vmin default mobile*/
+  height: 100vmin; /*80vmin default mobile*/
   #screen{
     background-size: cover;
     background-repeat: no-repeat;
-    width: 170vmin; /*170vmin default mobile*/
-    height: 100vmin; /*80vmin default mobile*/
+    width: 100%;
+    height: 100%;
     display: grid;
     #hbars{
       position: absolute;
