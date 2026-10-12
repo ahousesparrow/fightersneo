@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Page</title>
+    <link rel="manifest" href="./manifest.json">
+    <link href="./fightersneostyle.css" rel="stylesheet" type="text/css" media="all">
+    <script src="./uiLogic.js" defer></script>
+    <script src="./gameLogic.js" defer></script>
+  </head>
+  <body>
+    <div id="p1Mobile" class="mobile">
+      <button id="p1mobile-button-q" class="mobileButton" type="submit"><h3>1</h3></button>
+      <button id="p1mobile-button-w" class="mobileButton" type="submit"><h3>2</h3></button>
+      <button id="p1mobile-button-e" class="mobileButton" type="submit"><h3>3</h3></button>
+      <button id="p1mobile-button-r" class="mobileButton" type="submit"><h3>ULTI</h3></button>
+      <button id="p1mobile-button-block" class="mobileButton" type="submit"><h3>BLOCK</h3></button>
+    </div>
+    <div id="menu">
+      <div id="main">
+        <img id="logo" src="./assets/images/logoFN.png" draggable="false" alt="Fighters Neo Logo" />
+        <div id="button-box">
+          <button id="main-button-n1" type="button" data-selected="0">PLAY 2P</button>
+          <button id="main-button-n2" type="button" data-selected="0">PLAY 1P</button>
+          <button id="main-button-n3" type="button" data-selected="0">CONTROLS</button>
+          <button id="main-button-n4" type="button" data-selected="0">CREDITS</button>
+        </div>
+        <h2>[space]choose [enter]select [backspace]back</h2>
+      </div>
+      <div id="char-sel">
+        <div id="char-sel-txt">
+          <h1 id="char-sel-txt-player">PLAYER 1</h1>
+          <h2 id="char-sel-txt-bottom">SELECT YOUR CHAMPION!</h2>
+        </div>
+        <img class="char-sel-char" id="char-sel-img-p1-n1" draggable="false" data-selected="0" data-character="character1A" src="./assets/characters/character1A/idle.gif" alt="Character selection character 1" style="width: 50vmin; z-index: 103; transform: scaleX(-1); right: 85vmin; bottom: 3vmin;"/>
+        <img class="char-sel-char" id="char-sel-img-p1-n2" draggable="false" data-selected="0" data-character="character3A" src="./assets/characters/character3A/idle.gif" alt="Character selection character 3" style="width: 60vmin; z-index: 101; right: 58vmin; bottom: 3vmin;"/>
+        <img class="char-sel-char" id="char-sel-img-p1-n3" draggable="false" data-selected="0" data-character="character2A" src="./assets/characters/character2A/idle.gif" alt="Character selection character 2" style="width: 50vmin; z-index: 102; right: 35vmin; bottom: 3vmin;"/>
+        <img class="char-sel-char" id="char-sel-img-p1-n4" draggable="false" data-selected="0" data-character="character4A" src="./assets/characters/character4A/idle.gif" alt="Character selection character 4" style="width: 38vmin; z-index: 100; transform: scaleX(-1); right: 30vmin; bottom: 9vmin;"/>
+        <img class="char-sel-char" id="char-sel-img-p1-n5" draggable="false" data-selected="0" data-character="character5A" src="./assets/characters/character5A/idle.gif" alt="Character selection character 5" style="width: 50vmin; z-index: 105; transform: scaleX(-1); right: 15vmin; bottom: 2vmin;"/>
+        <img class="char-sel-char" id="char-sel-img-p1-n6" draggable="false" data-selected="0" data-character="character6A" src="./assets/characters/character6A/emote6.gif" alt="Character selection character 6" style="width: 65vmin; z-index: 99; transform: scaleX(-1); right: 40vmin; bottom: 13vmin;"/>
+        <h2>[space]choose [enter]select [backspace]back</h2>
+      </div>
+      <div id="credits">
+        <div>
+          <h3>Put together by Zappy Shark<br>Code by Zappy Shark<br>Logic by Zappy Shark</h3>
+          <h4>NOTICE OF NON-COMMERCIAL INTENT
+I DO NOT MAKE ABSOLUTELY ANY MONEY FROM THIS PROJECT. THIS IS A NON-PROFIT, FAN-MADE GAME CREATED SOLELY FOR EDUCATIONAL AND HOBBYIST PURPOSES. ALL CHARACTERS, IMAGES, AND SOUNDS ARE PROPERTY OF THEIR RESPECTIVE OWNERS.</h4>
+          <h3>ALL USED MEDIA HAS BEEN COLLECTED FROM THE ARCHIVED WEB</h3>
+        </div>
+        <h2>[space]choose [enter]select [backspace]back</h2>
+      </div>
+      <div id="game-over">
+        
+      </div>
+      <button id="button-back" onclick="buttonBackFunc()" type="button"></button>
+    </div>
+    <div id="game">
+      <div id="screen">
+        <div id="hbars">
+          <div class="hbar-p1" id="hbar">
+            <div class="nameplate-p1">
+              <h3>Player 1</h3>
+              <h1 class="win-counter-p1">0</h3>
+            </div>
+            <div class="hbar-p1-bg">
+              <img class="hbar-p1-meter" draggable="false" src="./assets/images/gold.png" alt="Player 1 Health Bar" />
+            </div>
+            <div class="ulti-p1-bg">
+              <img class="ulti-p1-meter" draggable="false" src="./assets/images/pink.png" alt="Player 1 Ultimate Bar" />
+            </div>
+            <h4 class="hbar-p1-meter-txt">100%</h4>
+          </div>
+          <div class="hbar-p2" id="hbar">
+            <div class="nameplate-p2">
+              <h3>Player 2</h3>
+              <h1 class="win-counter-p2">0</h3>
+            </div>
+            <div class="hbar-p2-bg">
+              <img class="hbar-p2-meter" draggable="false" src="./assets/images/gold.png" alt="Player 2 Health Bar" />
+            </div>
+            <div class="ulti-p2-bg">
+              <img class="ulti-p2-meter" draggable="false" src="./assets/images/pink.png" alt="Player 2 Ultimate Bar" />
+            </div>
+            <h4 class="hbar-p2-meter-txt">100%</h4>
+          </div>
+        </div>
+        <div id="end">
+          <h1 id="end-txt"></h1>
+        </div>
+        <div id="players">
+          <img class="player1" id="player" data-character="" draggable="false" alt="Player 1" />
+          <img class="player2" id="player" data-character="" draggable="false" alt="Player 2" />
+        </div>
+      </div>
+    </div>
+
+    <div id="over">
+      <img class="char-sel-char" id="over-img-p1" draggable="false" data-selected="0" data-character="character1A" src="./assets/characters/character1A/idle.gif" alt="Over character 1" style="width: 50vmin; z-index: 0; transform: scaleX(1.5) scaleY(1.5);  position: absolute; bottom: -25vmin; left: 5vmin;"/>
+      <h1 style="z-index: 100;">GAME OVER!</h1>
+      <div id="button-box2" style="z-index: 100;">
+        <button id="over-button-n1" type="button" data-selected="0">PLAY AGAIN</button>
+        <button id="over-button-n2" type="button" data-selected="0">CHOOSE FIGHTERS</button>
+        <button id="over-button-n3" type="button" data-selected="0">MAIN MENU</button>
+      </div>
+      <h2 style="z-index: 100;">[space]choose [enter]select [backspace]back</h2>
+      <img class="char-sel-char" id="over-img-p2" draggable="false" data-selected="0" data-character="character1A" src="./assets/characters/character2A/idle.gif" alt="Over character 2" style="width: 50vmin; z-index: 0; transform: scaleX(-1.5) scaleY(1.5); position: absolute; bottom: -25vmin; right: 5vmin;"/>
+    </div>
+    <div id="p2Mobile" class="mobile">
+      <button id="p2mobile-button-q" class="mobileButton" type="submit"><h3>1</h3></button>
+      <button id="p2mobile-button-w" class="mobileButton" type="submit"><h3>2</h3></button>
+      <button id="p2mobile-button-e" class="mobileButton" type="submit"><h3>3</h3></button>
+      <button id="p2mobile-button-r" class="mobileButton" type="submit"><h3>ULTI</h3></button>
+      <button id="p2mobile-button-block" class="mobileButton" type="submit"><h3>BLOCK</h3></button>
+    </div>
+  </body>
+</html>

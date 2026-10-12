@@ -1,0 +1,10 @@
+NOTICE OF NON-COMMERCIAL INTENT
+I DO NOT MAKE ABSOLUTELY ANY MONEY FROM THIS PROJECT. THIS IS A NON-PROFIT, FAN-MADE GAME CREATED SOLELY FOR EDUCATIONAL AND HOBBYIST PURPOSES. ALL CHARACTERS, IMAGES, AND SOUNDS ARE PROPERTY OF THEIR RESPECTIVE OWNERS. THE DONATION OPTION ON THE HOME PAGE IS FOR WEBSITE HOSTING SUPPORT ONLY AND IS NOT A CHARGE FOR PLAYING THIS GAME.
+
+28 Dec: 3rd day working on FightersNeo.
+  Added three playable characters: Li Xiangfei, Joe Higashi, Geese Howard;
+  Added Main Menu and Character Selection
+    To-do:
+      Add other Main Menu pages:
+      Game over screen: [Play agian] [Character Selection] [Main menu]
+    
