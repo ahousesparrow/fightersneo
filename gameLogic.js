@@ -3,11 +3,8 @@ let character2;
 
 let emoteTimerPlayer1 = null; let blockTimerPlayer1 = null;
 let emoteTimerPlayer2 = null; let blockTimerPlayer2 = null;
-let actionTimerPlayer1 = null; let ultimateTimerPlayer1 = null;
-let actionTimerPlayer2 = null; let ultimateTimerPlayer2 = null;
-
-let isAttacked1 = false;
-let isAttacked2 = false;
+let ultimateTimerPlayer1 = null;
+let ultimateTimerPlayer2 = null;
 
 let player1AbilityName = '';
 let player2AbilityName = '';
@@ -15,7 +12,6 @@ let player2AbilityName = '';
 let player1Score = 0;
 let player2Score = 0;
 let roundCount = 0;
-
 
 const player1KeysAction = ['KeyQ', 'KeyW', 'KeyE', 'KeyR', 'Space'];
 const player1KeysEmote = ['Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6'];
@@ -84,6 +80,11 @@ const characterData = {
     emote8Length: '600',
     emote9: '',
     emote9Length: '',
+
+    // Cooldown and attack
+    playerCooldown: '0',
+    attacked: '0',
+    actionTimerPlayer: '0',
     
     // Over screen
     overWin: '50',
@@ -151,6 +152,11 @@ const characterData = {
     emote9: '55',
     emote9Length: '800', //400 x2
         
+    // Cooldown and attack
+    playerCooldown: '0',
+    attacked: '0',
+    actionTimerPlayer: '0',
+
     // Over screen
     overWin: '50',
     overLose: '50'
@@ -216,6 +222,11 @@ const characterData = {
     emote8Length: '',
     emote9: '',
     emote9Length: '',
+
+    // Cooldown and attack
+    playerCooldown: '0',
+    attacked: '0',
+    actionTimerPlayer: '0',
         
     // Over screen
     overWin: '60',
@@ -282,6 +293,11 @@ const characterData = {
     emote8Length: '',
     emote9: '',
     emote9Length: '',
+
+    // Cooldown and attack
+    playerCooldown: '0',
+    attacked: '0',
+    actionTimerPlayer: '0',
         
     // Over screen
     overWin: '38',
@@ -348,6 +364,11 @@ const characterData = {
     emote8Length: '4400',
     emote9: '0',
     emote9Length: '0',
+
+    // Cooldown and attack
+    playerCooldown: '0',
+    attacked: '0',
+    actionTimerPlayer: '0',
         
     // Over screen
     overWin: '50',
@@ -414,6 +435,11 @@ const characterData = {
     emote8Length: '',
     emote9: '',
     emote9Length: '',
+
+    // Cooldown and attack
+    playerCooldown: '0',
+    attacked: '0',
+    actionTimerPlayer: '0',
         
     // Over screen
     overWin: '50',
@@ -470,70 +496,70 @@ function keyConfig(event){
     return; 
   }
   
-  if (event.code === player1KeysAction[0] && actionTimerPlayer1 === null) {
+  if (event.code === player1KeysAction[0] && player1.dataset.actionTimerPlayer == '0') {
     player1AbilityName = 'ability1';
   }
-  else if (event.code === player1KeysAction[1] && actionTimerPlayer1 === null) {
+  else if (event.code === player1KeysAction[1] && player1.dataset.actionTimerPlayer == '0') {
     player1AbilityName = 'ability2';
   }
-  else if (event.code === player1KeysAction[2] && actionTimerPlayer1 === null) {
+  else if (event.code === player1KeysAction[2] && player1.dataset.actionTimerPlayer == '0') {
     player1AbilityName = 'ability3';
   }
-  else if (event.code === player1KeysAction[3] && actionTimerPlayer1 === null) {
+  else if (event.code === player1KeysAction[3] && player1.dataset.actionTimerPlayer == '0') {
     player1AbilityName = 'ultimate';
   }
-  else if (event.code === player1KeysEmote[0] && actionTimerPlayer1 === null) {
+  else if (event.code === player1KeysEmote[0] && player1.dataset.actionTimerPlayer == '0') {
     player1AbilityName = 'emote4';
   }
-  else if (event.code === player1KeysEmote[1] && actionTimerPlayer1 === null) {
+  else if (event.code === player1KeysEmote[1] && player1.dataset.actionTimerPlayer == '0') {
     player1AbilityName = 'emote5';
   }
-  else if (event.code === player1KeysEmote[2] && actionTimerPlayer1 === null) {
+  else if (event.code === player1KeysEmote[2] && player1.dataset.actionTimerPlayer == '0') {
     player1AbilityName = 'emote6';
   }
-  else if (event.code === player1KeysEmote[3] && actionTimerPlayer1 === null) {
+  else if (event.code === player1KeysEmote[3] && player1.dataset.actionTimerPlayer == '0') {
     player1AbilityName = 'emote7';
   }
-  else if (event.code === player1KeysEmote[4] && actionTimerPlayer1 === null) {
+  else if (event.code === player1KeysEmote[4] && player1.dataset.actionTimerPlayer == '0') {
     player1AbilityName = 'emote8';
   }
-  else if (event.code === player1KeysEmote[5] && actionTimerPlayer1 === null) {
+  else if (event.code === player1KeysEmote[5] && player1.dataset.actionTimerPlayer == '0') {
     player1AbilityName = 'emote9';
   }
-  else if (event.code === player1KeysAction[4] && actionTimerPlayer1 === null) {
+  else if (event.code === player1KeysAction[4] && player1.dataset.actionTimerPlayer == '0') {
     player1AbilityName = 'block';
   }
-  else if (event.code === player2KeysAction[0] && actionTimerPlayer2 === null && singleplayer === false) {
+  else if (event.code === player2KeysAction[0] && player2.dataset.actionTimerPlayer == '0' && singleplayer === false) {
     player2AbilityName = 'ability1';
   }
-  else if (event.code === player2KeysAction[1] && actionTimerPlayer2 === null && singleplayer === false) {
+  else if (event.code === player2KeysAction[1] && player2.dataset.actionTimerPlayer == '0' && singleplayer === false) {
     player2AbilityName = 'ability2';
   }
-  else if (event.code === player2KeysAction[2] && actionTimerPlayer2 === null && singleplayer === false) {
+  else if (event.code === player2KeysAction[2] && player2.dataset.actionTimerPlayer == '0' && singleplayer === false) {
     player2AbilityName = 'ability3';
   }
-  else if (event.code === player2KeysAction[3] && actionTimerPlayer2 === null && singleplayer === false) {
+  else if (event.code === player2KeysAction[3] && player2.dataset.actionTimerPlayer == '0' && singleplayer === false) {
     player2AbilityName = 'ultimate';
   }
-  else if (event.code === player2KeysEmote[0] && actionTimerPlayer2 === null && singleplayer === false) {
+  else if (event.code === player2KeysEmote[0] && player2.dataset.actionTimerPlayer == '0' && singleplayer === false) {
     player2AbilityName = 'emote4';
   }
-  else if (event.code === player2KeysEmote[1] && actionTimerPlayer2 === null && singleplayer === false) {
+  else if (event.code === player2KeysEmote[1] && player2.dataset.actionTimerPlayer == '0' && singleplayer === false) {
     player2AbilityName = 'emote5';
   }
-  else if (event.code === player2KeysEmote[2] && actionTimerPlayer2 === null && singleplayer === false) {
+  else if (event.code === player2KeysEmote[2] && player2.dataset.actionTimerPlayer == '0' && singleplayer === false) {
     player2AbilityName = 'emote6';
   }
-  else if (event.code === player2KeysEmote[3] && actionTimerPlayer2 === null && singleplayer === false) {
+  else if (event.code === player2KeysEmote[3] && player2.dataset.actionTimerPlayer == '0' && singleplayer === false) {
     player2AbilityName = 'emote7';
   }
-  else if (event.code === player2KeysEmote[4] && actionTimerPlayer2 === null && singleplayer === false) {
+  else if (event.code === player2KeysEmote[4] && player2.dataset.actionTimerPlayer == '0' && singleplayer === false) {
     player2AbilityName = 'emote8';
   }
-  else if (event.code === player2KeysEmote[5] && actionTimerPlayer2 === null && singleplayer === false) {
+  else if (event.code === player2KeysEmote[5] && player2.dataset.actionTimerPlayer == '0' && singleplayer === false) {
     player2AbilityName = 'emote9';
   }
-  else if (event.code === player2KeysAction[4] && actionTimerPlayer2 === null && singleplayer === false) {
+  else if (event.code === player2KeysAction[4] && player2.dataset.actionTimerPlayer == '0' && singleplayer === false) {
     player2AbilityName = 'block';
   }
 }
@@ -574,7 +600,6 @@ function enemyFlash(playerN){
     setTimeout(() => {
     const playerNScaleX = getComputedStyle(playerN).getPropertyValue('--scalex');
     playerN.style.filter = 'brightness(0) invert(1)';
-    console.log(playerNScaleX);
     playerN.style.setProperty('--translatex', (10 * parseInt(playerNScaleX, 10) * -1));
     
     setTimeout(() => {
@@ -612,7 +637,7 @@ function emotePlayer(event){
   else if (player2KeysEmote.includes(event.code)) activePlayer = 2;
   if (activePlayer === 0) return;
   
-  if (activePlayer === 1 && actionTimerPlayer1 === null && ultimateTimerPlayer1 === null) {
+  if (activePlayer === 1 && player1.dataset.actionTimerPlayer == '0' && ultimateTimerPlayer1 === null) {
     if(player1.dataset[player1AbilityName] !== ''){
       if (emoteTimerPlayer1) {
         clearTimeout(emoteTimerPlayer1);
@@ -634,7 +659,7 @@ function emotePlayer(event){
     } else {return;}
   }
   
-  if (activePlayer === 2 && actionTimerPlayer2 === null && ultimateTimerPlayer2 === null) {
+  if (activePlayer === 2 && player2.dataset.actionTimerPlayer == '0' && ultimateTimerPlayer2 === null) {
     if (player2.dataset[player2AbilityName] !== '') {
       if (emoteTimerPlayer2) {
         clearTimeout(emoteTimerPlayer2);
@@ -657,6 +682,152 @@ function emotePlayer(event){
   }
 }
 
+function playerPlayer(player1, character1, player1AbilityName, emoteTimerPlayer1, ultimateTimerPlayer1, ultimate1, healthbar1, healthbar1Text, blockTimerPlayer1, player2, character2, player2AbilityName, emoteTimerPlayer2, ultimateTimerPlayer2, ultimate2, healthbar2, healthbar2Text, blockTimerPlayer2, cooldownLength, multiplier)
+{
+  if(player1.dataset[`${player1AbilityName}`] !== ''){
+
+    if (emoteTimerPlayer1) {
+      clearTimeout(emoteTimerPlayer1);
+      emoteTimerPlayer1 = null;
+    }
+    
+    const moveDistanceXStart = player1.dataset[`${player1AbilityName}TranslateXStart`];
+    const moveDistanceXEnd = player1.dataset[`${player1AbilityName}TranslateXEnd`];
+    const moveDistanceYStart = player1.dataset[`${player1AbilityName}TranslateYStart`];
+    const moveDistanceYEnd = player1.dataset[`${player1AbilityName}TranslateYEnd`];
+    
+    let currentXP = parseInt(player1.dataset.ultimateCount);
+    
+    function abilityRestart(abilityLength){
+      player1.dataset.actionTimerPlayer = setTimeout(() => {
+        
+        player1.src = `./assets/characters/${character1}/idle.gif`;
+        player1.style.width = `${parseInt(player1.dataset.idle, 10)}vmin`;
+        player1.style.setProperty('--translatex', '0');
+        player1.style.setProperty('--translatey', '0');
+        player1.style.zIndex = '100';
+        
+        emoteTimerPlayer1 = null;
+        
+        player1.dataset.actionTimerPlayer = '0';
+        ultimateTimerPlayer1 = null;
+        
+        player2.dataset.actionTimerPlayer = '0';
+        ultimateTimerPlayer2 = null;
+        
+        player1AbilityName = '';
+        
+        player1.dataset.blocking = '0';
+        
+        player2.dataset.attacked = '0';
+        
+        player1.dataset.playerCooldown = '1'; //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        setTimeout(() => { //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+          player1.dataset.playerCooldown = '0'; //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        }, cooldownLength); //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+      }, parseInt(abilityLength, 10));
+    }
+    
+    if (player1AbilityName === 'block') {
+      if(player1.dataset.blockCount === '1'){
+        player1.src = `./assets/characters/${character1}/${player1AbilityName}.gif`;
+        player1.style.width = `${parseInt(player1.dataset[player1AbilityName], 10)}vmin`;
+        player1.dataset.blocking = '1';
+        player1.dataset.blockCount = '0';
+        
+        abilityRestart(player1.dataset[`${player1AbilityName}Length`]);
+      } else return;
+    }
+    else if (player1AbilityName !== 'ultimate' && player1.dataset.actionTimerPlayer == '0' && player1.dataset.attacked == '0') {
+      player2.dataset.attacked = '1';
+      player1.dataset.actionTimerPlayer = '1';
+      player1.dataset.blockCount = '1';
+      
+      enemyFlash(player2);
+      
+      if(player1AbilityName !== 'ultimate' && player2.dataset.blocking === '1'){  
+        player1.src = `./assets/characters/${character1}/penalty.gif`;
+        player1.style.width = `${parseInt(player1.dataset.penalty, 10)}vmin`;
+        player1.style.setProperty('--translatex', player1.dataset.penaltyTranslateXStart * multiplier);
+        player1.style.setProperty('--translatey', player1.dataset.penaltyTranslateYStart);
+        player1.style.zIndex = '100';
+        
+        let newXP = 0;
+        player1.dataset.ultimateCount = newXP;
+        ultimate1.style.width = `${newXP}%`;
+        
+        calcHP(player2, healthbar2, healthbar2Text, player1, player1AbilityName, 0.25);
+        
+        abilityRestart(player1.dataset[`${player1AbilityName}Length`]);
+      }
+      else if (player1AbilityName !== 'ultimate' && player2.dataset.blocking === '0') {
+        player1.src = `./assets/characters/${character1}/${player1AbilityName}.gif`;
+        player1.style.width = `${parseInt(player1.dataset[player1AbilityName], 10)}vmin`;
+        player1.style.setProperty('--translatex', moveDistanceXStart * multiplier);
+        player1.style.setProperty('--translatey', moveDistanceYStart);
+        player1.style.zIndex = '150';
+        
+        setTimeout(() => {
+          if(player2.dataset.blocking === '1'){
+            player1.src = `./assets/characters/${character1}/penalty.gif`;
+            player1.style.width = `${parseInt(player1.dataset.penalty, 10)}vmin`;
+            player1.style.setProperty('--translatex', player1.dataset.penaltyTranslateXStart * multiplier);
+            player1.style.setProperty('--translatey', player1.dataset.penaltyTranslateYStart);
+            player1.style.zIndex = '100';
+            
+            let newXP = 0;
+            player1.dataset.ultimateCount = newXP;
+            ultimate1.style.width = `${newXP}%`;
+            
+            calcHP(player2, healthbar2, healthbar2Text, player1, player1AbilityName, 0.25);
+
+            abilityRestart(parseInt(player1.dataset.penaltyLength));
+          }
+          else {
+            let newXP = currentXP + 20;
+            if (newXP > 100) {newXP = 100;}
+            player1.dataset.ultimateCount = newXP;
+            ultimate1.style.width = `${newXP}%`;
+            
+            calcHP(player2, healthbar2, healthbar2Text, player1, player1AbilityName, 1);
+            
+            abilityRestart('0');
+          }
+        }, player1.dataset[`${player1AbilityName}Length`]);
+      }
+    }
+    else if (player1AbilityName === 'ultimate' && player1.dataset.actionTimerPlayer == '0' && player1.dataset.attacked == '0'){
+      if(player1.dataset.ultimateCount === '100'){
+        player2.dataset.attacked = '1';
+        player1.dataset.actionTimerPlayer = '1'
+        player1.dataset.blockCount = '1';
+        
+        enemyFlash(player2);
+        
+        player1.src = `./assets/characters/${character1}/${player1AbilityName}.gif`;
+        player1.style.width = `${parseInt(player1.dataset[player1AbilityName], 10)}vmin`;
+        player1.style.setProperty('--translatex', moveDistanceXStart * multiplier);
+        player1.style.setProperty('--translatey', moveDistanceYStart);
+        player1.style.zIndex = '150';
+        
+        ultimateTimerPlayer1 = setTimeout(() => {
+          player1.style.setProperty('--translatex', moveDistanceXEnd * multiplier);
+          player1.style.setProperty('--translatey', moveDistanceYEnd);
+          
+          let newXP = 0;
+          player1.dataset.ultimateCount = newXP;
+          ultimate1.style.width = `${newXP}%`;
+          
+          calcHP(player2, healthbar2, healthbar2Text, player1, player1AbilityName, 1);
+          
+          abilityRestart(player1.dataset.ultimateLengthEnd);
+        }, parseInt(player1.dataset.ultimateLength - player1.dataset.ultimateLengthEnd, 10));
+      }
+    }
+  }
+}
+
 function actionPlayer(event){
   if (gameState !== 'game') {
     return; 
@@ -664,304 +835,18 @@ function actionPlayer(event){
   
   let cooldownLength = 500; //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
-  let player1Cooldown = false; //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  let player2Cooldown = false; //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  
   let activePlayer = 0;
   
   if (player1KeysAction.includes(event.code)) activePlayer = 1;
   else if (player2KeysAction.includes(event.code)) activePlayer = 2;
   if (activePlayer === 0) return;
   
-  if (activePlayer === 1 && player1Cooldown == false){ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if(player1.dataset[`${player1AbilityName}`] !== ''){
-      
-      if (emoteTimerPlayer1) {
-        clearTimeout(emoteTimerPlayer1);
-        emoteTimerPlayer1 = null;
-      }
-      
-      const moveDistanceXStart = player1.dataset[`${player1AbilityName}TranslateXStart`];
-      const moveDistanceXEnd = player1.dataset[`${player1AbilityName}TranslateXEnd`];
-      const moveDistanceYStart = player1.dataset[`${player1AbilityName}TranslateYStart`];
-      const moveDistanceYEnd = player1.dataset[`${player1AbilityName}TranslateYEnd`];
-      
-      let currentXP = parseInt(player1.dataset.ultimateCount);
-      
-      function abilityRestart(abilityLength){
-        actionTimerPlayer1 = setTimeout(() => {
-          
-          player1.src = `./assets/characters/${character1}/idle.gif`;
-          player1.style.width = `${parseInt(player1.dataset.idle, 10)}vmin`;
-          player1.style.setProperty('--translatex', '0');
-          player1.style.setProperty('--translatey', '0');
-          player1.style.zIndex = '100';
-          
-          emoteTimerPlayer1 = null;
-          
-          actionTimerPlayer1 = null;
-          ultimateTimerPlayer1 = null;
-          
-          actionTimerPlayer2 = null;
-          ultimateTimerPlayer2 = null;
-          
-          player1AbilityName = '';
-          
-          player1.dataset.blocking = '0';
-          
-          isAttacked2 = false;
-          
-          player1Cooldown = true; //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-          setTimeout(() => { //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            player1Cooldown = false; //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-          }, cooldownLength); //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-          
-        }, parseInt(abilityLength, 10));
-      }
-      
-      if (player1AbilityName === 'block') {
-        if(player1.dataset.blockCount === '1'){
-          player1.src = `./assets/characters/${character1}/${player1AbilityName}.gif`;
-          player1.style.width = `${parseInt(player1.dataset[player1AbilityName], 10)}vmin`;
-          player1.dataset.blocking = '1';
-          player1.dataset.blockCount = '0';
-          
-          abilityRestart(player1.dataset[`${player1AbilityName}Length`]);
-        } else return;
-      }
-      else if (player1AbilityName !== 'ultimate' && actionTimerPlayer1 === null && isAttacked1 === false) {
-        isAttacked2 = true;
-        actionTimerPlayer1 = "locked";
-        player1.dataset.blockCount = '1';
-        
-        enemyFlash(player2);
-        
-        if(player1AbilityName !== 'ultimate' && player2.dataset.blocking === '1'){  
-          player1.src = `./assets/characters/${character1}/penalty.gif`;
-          player1.style.width = `${parseInt(player1.dataset.penalty, 10)}vmin`;
-          player1.style.setProperty('--translatex', player1.dataset.penaltyTranslateXStart);
-          player1.style.setProperty('--translatey', player1.dataset.penaltyTranslateYStart);
-          player1.style.zIndex = '100';
-          
-          let newXP = 0;
-          player1.dataset.ultimateCount = newXP;
-          ultimate1.style.width = `${newXP}%`;
-          
-          calcHP(player2, healthbar2, healthbar2Text, player1, player1AbilityName, 0.25);
-          
-          abilityRestart(player1.dataset[`${player1AbilityName}Length`]);
-        }
-        else if (player1AbilityName !== 'ultimate' && player2.dataset.blocking === '0') {
-          player1.src = `./assets/characters/${character1}/${player1AbilityName}.gif`;
-          player1.style.width = `${parseInt(player1.dataset[player1AbilityName], 10)}vmin`;
-          player1.style.setProperty('--translatex', moveDistanceXStart);
-          player1.style.setProperty('--translatey', moveDistanceYStart);
-          player1.style.zIndex = '150';
-          
-          setTimeout(() => {
-            if(player2.dataset.blocking === '1'){
-              player1.src = `./assets/characters/${character1}/penalty.gif`;
-              player1.style.width = `${parseInt(player1.dataset.penalty, 10)}vmin`;
-              player1.style.setProperty('--translatex', player1.dataset.penaltyTranslateXStart);
-              player1.style.setProperty('--translatey', player1.dataset.penaltyTranslateYStart);
-              player1.style.zIndex = '100';
-              
-              let newXP = 0;
-              player1.dataset.ultimateCount = newXP;
-              ultimate1.style.width = `${newXP}%`;
-              
-              calcHP(player2, healthbar2, healthbar2Text, player1, player1AbilityName, 0.25);
-
-              abilityRestart(parseInt(player1.dataset.penaltyLength));
-            }
-            else {
-              let newXP = currentXP + 20;
-              if (newXP > 100) {newXP = 100;}
-              player1.dataset.ultimateCount = newXP;
-              ultimate1.style.width = `${newXP}%`;
-              
-              calcHP(player2, healthbar2, healthbar2Text, player1, player1AbilityName, 1);
-              
-              abilityRestart('0');
-            }
-          }, player1.dataset[`${player1AbilityName}Length`]);
-        }
-      }
-      else if (player1AbilityName === 'ultimate' && actionTimerPlayer1 === null && isAttacked1 === false){
-        if(player1.dataset.ultimateCount === '100'){
-          isAttacked2 = true;
-          actionTimerPlayer1 = "locked";
-          player1.dataset.blockCount = '1';
-          
-          enemyFlash(player2);
-          
-          player1.src = `./assets/characters/${character1}/${player1AbilityName}.gif`;
-          player1.style.width = `${parseInt(player1.dataset[player1AbilityName], 10)}vmin`;
-          player1.style.setProperty('--translatex', moveDistanceXStart);
-          player1.style.setProperty('--translatey', moveDistanceYStart);
-          player1.style.zIndex = '150';
-          
-          ultimateTimerPlayer1 = setTimeout(() => {
-            player1.style.setProperty('--translatex', moveDistanceXEnd);
-            player1.style.setProperty('--translatey', moveDistanceYEnd);
-            
-            let newXP = 0;
-            player1.dataset.ultimateCount = newXP;
-            ultimate1.style.width = `${newXP}%`;
-            
-            calcHP(player2, healthbar2, healthbar2Text, player1, player1AbilityName, 1);
-            
-            abilityRestart(player1.dataset.ultimateLengthEnd);
-          }, parseInt(player1.dataset.ultimateLength - player1.dataset.ultimateLengthEnd, 10));
-        }
-      }
-    }
+  if (activePlayer === 1 && player1.dataset.playerCooldown == '0'){ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    playerPlayer(player1, character1, player1AbilityName, emoteTimerPlayer1, ultimateTimerPlayer1, ultimate1, healthbar1, healthbar1Text, blockTimerPlayer1, player2, character2, player2AbilityName, emoteTimerPlayer2, ultimateTimerPlayer2, ultimate2, healthbar2, healthbar2Text, blockTimerPlayer2, cooldownLength, 1)
   }
 
-  if (activePlayer === 2 && player2Cooldown == false  && singleplayer === false){ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if(player2.dataset[`${player2AbilityName}`] !== ''){
-      
-      if (emoteTimerPlayer2) {
-        clearTimeout(emoteTimerPlayer2);
-        emoteTimerPlayer2 = null;
-      }
-      
-      const moveDistanceXStart = player2.dataset[`${player2AbilityName}TranslateXStart`];
-      const moveDistanceXEnd = player2.dataset[`${player2AbilityName}TranslateXEnd`];
-      const moveDistanceYStart = player2.dataset[`${player2AbilityName}TranslateYStart`];
-      const moveDistanceYEnd = player2.dataset[`${player2AbilityName}TranslateYEnd`];
-      
-      let currentXP = parseInt(player2.dataset.ultimateCount);
-      let damageValue = parseInt(player2.dataset[player2AbilityName + 'Damage']);
-      
-      function abilityRestart(abilityLength){
-        actionTimerPlayer2 = setTimeout(() => {
-          
-          player2.src = `./assets/characters/${character2}/idle.gif`;
-          player2.style.width = `${parseInt(player2.dataset.idle, 10)}vmin`;
-          player2.style.setProperty('--translatex', '0');
-          player2.style.setProperty('--translatey', '0');
-          player2.style.zIndex = '100';
-          
-          emoteTimerPlayer2 = null;
-          
-          actionTimerPlayer2 = null;
-          ultimateTimerPlayer2 = null;
-          
-          actionTimerPlayer1 = null;
-          ultimateTimerPlayer1 = null;
-          
-          player2AbilityName = '';
-          
-          player2.dataset.blocking = '0';
-          
-          isAttacked1 = false;
-          
-          player2Cooldown = true; //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-          setTimeout(() => { //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            player2Cooldown = false; //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-          }, cooldownLength); //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-          
-        }, parseInt(abilityLength, 10));
-      }
-      
-      if (player2AbilityName === 'block') {
-        if(player2.dataset.blockCount === '1'){
-          player2.src = `./assets/characters/${character2}/${player2AbilityName}.gif`;
-          player2.style.width = `${parseInt(player2.dataset[player2AbilityName], 10)}vmin`;
-          player2.dataset.blocking = '1';
-          player2.dataset.blockCount = '0';
-          
-          abilityRestart(player2.dataset[`${player2AbilityName}Length`]);
-        } else return;
-      }
-      else if (player2AbilityName !== 'ultimate' && actionTimerPlayer2 === null && isAttacked2 === false) {
-        isAttacked1 = true;
-        actionTimerPlayer2 = "locked";
-        player2.dataset.blockCount = '1';
-        
-        enemyFlash(player1);
-        
-        if(player2AbilityName !== 'ultimate' && player1.dataset.blocking === '1'){  
-          player2.src = `./assets/characters/${character2}/penalty.gif`;
-          player2.style.width = `${parseInt(player2.dataset.penalty, 10)}vmin`;
-          player2.style.setProperty('--translatex', player2.dataset.penaltyTranslateXStart * -1);
-          player2.style.setProperty('--translatey', player2.dataset.penaltyTranslateYStart);
-          player2.style.zIndex = '100';
-          
-          let newXP = 0;
-          player2.dataset.ultimateCount = newXP;
-          ultimate2.style.width = `${newXP}%`;
-          
-          calcHP(player1, healthbar1, healthbar1Text, player2, player2AbilityName, 0.25);
-          
-          abilityRestart(player2.dataset[`${player2AbilityName}Length`]);
-        }
-        else if (player2AbilityName !== 'ultimate' && player1.dataset.blocking === '0') {
-          player2.src = `./assets/characters/${character2}/${player2AbilityName}.gif`;
-          player2.style.width = `${parseInt(player2.dataset[player2AbilityName], 10)}vmin`;
-          player2.style.setProperty('--translatex', moveDistanceXStart * -1);
-          player2.style.setProperty('--translatey', moveDistanceYStart);
-          player2.style.zIndex = '150';
-          
-          setTimeout(() => {
-            if(player1.dataset.blocking === '1'){
-              player2.src = `./assets/characters/${character2}/penalty.gif`;
-              player2.style.width = `${parseInt(player2.dataset.penalty, 10)}vmin`;
-              player2.style.setProperty('--translatex', player2.dataset.penaltyTranslateXStart * -1);
-              player2.style.setProperty('--translatey', player2.dataset.penaltyTranslateYStart);
-              player2.style.zIndex = '100';
-              
-              let newXP = 0;
-              player2.dataset.ultimateCount = newXP;
-              ultimate2.style.width = `${newXP}%`;
-              
-              calcHP(player1, healthbar1, healthbar1Text, player2, player2AbilityName, 0.25);
-
-              abilityRestart(parseInt(player2.dataset.penaltyLength));
-            }
-            else {
-              let newXP = currentXP + 20;
-              if (newXP > 100) {newXP = 100;}
-              player2.dataset.ultimateCount = newXP;
-              ultimate2.style.width = `${newXP}%`;
-              
-              calcHP(player1, healthbar1, healthbar1Text, player2, player2AbilityName, 1);
-              
-              abilityRestart('0');
-            }
-          }, player2.dataset[`${player2AbilityName}Length`]);
-        }
-      }
-      else if (player2AbilityName === 'ultimate' && actionTimerPlayer2 === null && isAttacked2 === false){
-        if(player2.dataset.ultimateCount === '100'){
-          isAttacked1 = true;
-          actionTimerPlayer2 = "locked";
-          player2.dataset.blockCount = '1';
-          
-          enemyFlash(player1);
-          
-          player2.src = `./assets/characters/${character2}/${player2AbilityName}.gif`;
-          player2.style.width = `${parseInt(player2.dataset[player2AbilityName], 10)}vmin`;
-          player2.style.setProperty('--translatex', moveDistanceXStart * -1);
-          player2.style.setProperty('--translatey', moveDistanceYStart);
-          player2.style.zIndex = '150';
-          
-          ultimateTimerPlayer2 = setTimeout(() => {
-            player2.style.setProperty('--translatex', moveDistanceXEnd * -1);
-            player2.style.setProperty('--translatey', moveDistanceYEnd);
-            
-            let newXP = 0;
-            player2.dataset.ultimateCount = newXP;
-            ultimate2.style.width = `${newXP}%`;
-            
-            calcHP(player1, healthbar1, healthbar1Text, player2, player2AbilityName, 1);
-            
-            abilityRestart(player2.dataset.ultimateLengthEnd);
-          }, parseInt(player2.dataset.ultimateLength - player2.dataset.ultimateLengthEnd, 10));
-        }
-      }
-    }
+  if (activePlayer === 2 && player2.dataset.playerCooldown == '0'){ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    playerPlayer(player2, character2, player2AbilityName, emoteTimerPlayer2, ultimateTimerPlayer2, ultimate2, healthbar2, healthbar2Text, blockTimerPlayer2, player1, character1, player1AbilityName, emoteTimerPlayer1, ultimateTimerPlayer1, ultimate1, healthbar1, healthbar1Text, blockTimerPlayer1, cooldownLength, -1)
   }
 }
 

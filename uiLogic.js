@@ -211,7 +211,6 @@ function stateManager(event){
       buttonListMain['buttonNumber' + currentNumber].dataset.selected = '1';
     }
     else if (event.key === 'Enter'){
-      console.log('Wowww!');
       if(buttonListMain['buttonNumber0'].dataset.selected === '1'){
         main.style.display = 'none';
         characterSelection.style.display = 'grid';
@@ -241,6 +240,31 @@ function stateManager(event){
       }
       else if(buttonListMain['buttonNumber2'].dataset.selected === '1'){
         console.log('Page doesnt exist yet!');
+        if (document.querySelector(".dance")) {document.querySelector(".dance").remove(); document.querySelector(".danceText").remove();}
+        else if (!document.querySelector(".dance")) {
+          const dance = document.createElement("div");
+          dance.style.backgroundImage = "url(./assets/characters/dance.gif)";
+          dance.style.backgroundRepeat = "no-repeat";
+          dance.style.backgroundSize = "cover";
+          dance.style.left = "-15%";
+          dance.style.position = "absolute";
+          dance.style.width = "100vw";
+          dance.style.height = "100vh";
+          dance.style.zIndex = "1";
+          dance.classList.add("dance");
+          document.querySelector("#main").appendChild(dance);
+
+          const danceText = document.createElement("h1");
+          danceText.style.position = "absolute";
+          danceText.style.zIndex = "2";
+          danceText.textContent = "COME BACK LATER!";
+          danceText.style.color = "white";
+          danceText.style.fontSize = "4vw";
+          danceText.style.left = "30%";
+          danceText.style.bottom = "30%";
+          danceText.classList.add("danceText");
+          document.querySelector("#main").appendChild(danceText);
+        }
         playSound(buttonSelectMP3);
       }
       else if(buttonListMain['buttonNumber3'].dataset.selected === '1'){
@@ -420,21 +444,18 @@ function stateManager(event){
       event.target.dataset.selected = '1';
       event.target.style.filter = 'drop-shadow(0 0 2vmin blue)';
       p1SelectedChar = true;
-      console.log('tried picking');
     }
     else if(event.target.classList.contains('char-sel-char') && p1SelectedChar && !p2SelectedChar && event.target.dataset.selected === '0'){
       characterList['characterNumber0'].style.filter = 'none'; //clear preselected char
       event.target.dataset.selected = '2';
       event.target.style.filter = 'drop-shadow(0 0 2vmin red)';
       p2SelectedChar = true;
-      console.log('tried picking');
     }
     else if(event.target.classList.contains('char-sel-char') && p1SelectedChar && !p2SelectedChar && event.target.dataset.selected === '1'){
       characterList['characterNumber0'].style.filter = 'none'; //clear preselected char
       event.target.dataset.selected = '3';
       event.target.style.filter = 'drop-shadow(0 0 2vmin blue) drop-shadow(0 0 2vmin magenta)';
       p2SelectedChar = true;
-      console.log('tried picking');
     }
     else if (event.target.classList.contains('char-sel-char') && p1SelectedChar && p2SelectedChar){
       menu.style.display = 'none';
